@@ -1,0 +1,413 @@
+    Checking warroom v0.1.0 (E:\SpaceTime Db)
+error[E0432]: unresolved imports `spacetimedb::http::RequestBuilder`, `spacetimedb::http::Method`
+   --> src\lib.rs:446:29
+    |
+446 |     use spacetimedb::http::{RequestBuilder, Method};
+    |                             ^^^^^^^^^^^^^^  ^^^^^^ no `Method` in `http`
+    |                             |
+    |                             no `RequestBuilder` in `http`
+
+error[E0432]: unresolved imports `spacetimedb::http::RequestBuilder`, `spacetimedb::http::Method`
+   --> src\lib.rs:648:29
+    |
+648 |     use spacetimedb::http::{RequestBuilder, Method};
+    |                             ^^^^^^^^^^^^^^  ^^^^^^ no `Method` in `http`
+    |                             |
+    |                             no `RequestBuilder` in `http`
+
+error[E0432]: unresolved imports `spacetimedb::http::RequestBuilder`, `spacetimedb::http::Method`
+   --> src\lib.rs:846:29
+    |
+846 |     use spacetimedb::http::{RequestBuilder, Method};
+    |                             ^^^^^^^^^^^^^^  ^^^^^^ no `Method` in `http`
+    |                             |
+    |                             no `RequestBuilder` in `http`
+
+warning: unused import: `procedure`
+ --> src\lib.rs:8:35
+  |
+8 | use spacetimedb::{table, reducer, procedure, ReducerContext, ProcedureContext, Table, ScheduleAt};
+  |                                   ^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+error[E0593]: function is expected to take 2 arguments, but it takes 1 argument
+   --> src\lib.rs:131:46
+    |
+131 | #[table(accessor = scout_schedule, scheduled(scout_think))]
+    | ---------------------------------------------^^^^^^^^^^^---
+    | |                                            |
+    | |                                            expected function that takes 2 arguments
+    | required by a bound introduced by this call
+...
+393 | fn scout_think(ctx: &mut ProcedureContext) {
+    | ------------------------------------------ takes 1 argument
+    |
+    = note: required for `for<'a> fn(&'a mut ProcedureContext) {scout_think}` to implement `spacetimedb::rt::Procedure<'_, (ScoutSchedule,), ()>`
+    = note: required for `for<'a> fn(&'a mut ProcedureContext) {scout_think}` to implement `ExportFunctionForScheduledTable<'_, ScoutSchedule, FnKindProcedure<()>>`
+note: required by a bound in `scheduled_typecheck`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\rt.rs:442:61
+    |
+442 | pub const fn scheduled_typecheck<'de, Row, FnKind>(_x: impl ExportFunctionForScheduledTable<'de, Row, FnKind>)
+    |                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `scheduled_typecheck`
+
+error[E0593]: function is expected to take 2 arguments, but it takes 1 argument
+   --> src\lib.rs:140:51
+    |
+140 | #[table(accessor = strategist_schedule, scheduled(strategist_think))]
+    | --------------------------------------------------^^^^^^^^^^^^^^^^---
+    | |                                                 |
+    | |                                                 expected function that takes 2 arguments
+    | required by a bound introduced by this call
+...
+601 | fn strategist_think(ctx: &mut ProcedureContext) {
+    | ----------------------------------------------- takes 1 argument
+    |
+    = note: required for `for<'a> fn(&'a mut ProcedureContext) {strategist_think}` to implement `spacetimedb::rt::Procedure<'_, (StrategistSchedule,), ()>`
+    = note: required for `for<'a> fn(&'a mut ProcedureContext) {strategist_think}` to implement `ExportFunctionForScheduledTable<'_, StrategistSchedule, FnKindProcedure<()>>`
+note: required by a bound in `scheduled_typecheck`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\rt.rs:442:61
+    |
+442 | pub const fn scheduled_typecheck<'de, Row, FnKind>(_x: impl ExportFunctionForScheduledTable<'de, Row, FnKind>)
+    |                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `scheduled_typecheck`
+
+error[E0593]: function is expected to take 2 arguments, but it takes 1 argument
+   --> src\lib.rs:149:47
+    |
+149 | #[table(accessor = devils_schedule, scheduled(devils_think))]
+    | ----------------------------------------------^^^^^^^^^^^^---
+    | |                                             |
+    | |                                             expected function that takes 2 arguments
+    | required by a bound introduced by this call
+...
+799 | fn devils_think(ctx: &mut ProcedureContext) {
+    | ------------------------------------------- takes 1 argument
+    |
+    = note: required for `for<'a> fn(&'a mut ProcedureContext) {devils_think}` to implement `spacetimedb::rt::Procedure<'_, (DevilsSchedule,), ()>`
+    = note: required for `for<'a> fn(&'a mut ProcedureContext) {devils_think}` to implement `ExportFunctionForScheduledTable<'_, DevilsSchedule, FnKindProcedure<()>>`
+note: required by a bound in `scheduled_typecheck`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\rt.rs:442:61
+    |
+442 | pub const fn scheduled_typecheck<'de, Row, FnKind>(_x: impl ExportFunctionForScheduledTable<'de, Row, FnKind>)
+    |                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `scheduled_typecheck`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:251:43
+    |
+251 |         if ctx.db.agent().agent_id().find(*agent_id).is_some() {
+    |                                      ---- ^^^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |                                      |
+    |                                      required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::find`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:343:38
+    |
+343 |     pub fn find(&self, col_val: impl Borrow<Col::ColType>) -> Option<Tbl::Row>
+    |                                      ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::find`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:405:19
+    |
+405 |             .find("crisis")
+    |              ---- ^^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |              |
+    |              required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::find`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:343:38
+    |
+343 |     pub fn find(&self, col_val: impl Borrow<Col::ColType>) -> Option<Tbl::Row>
+    |                                      ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::find`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:418:55
+    |
+418 |         let agent = tx_ctx.db.agent().agent_id().find("scout");
+    |                                                  ---- ^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |                                                  |
+    |                                                  required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::find`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:343:38
+    |
+343 |     pub fn find(&self, col_val: impl Borrow<Col::ColType>) -> Option<Tbl::Row>
+    |                                      ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::find`
+
+error[E0308]: mismatched types
+   --> src\lib.rs:426:59
+    |
+426 |             let updated = AgentMessage { is_read: true, ..msg.clone() };
+    |                                                           ^^^^^^^^^^^ expected `AgentMessage`, found `&AgentMessage`
+
+error[E0599]: no method named `fetch` found for struct `HttpClient` in the current scope
+   --> src\lib.rs:449:45
+    |
+449 |     let mem0_response_text = match ctx.http.fetch(
+    |                                    ---------^^^^^ method not found in `HttpClient`
+
+error[E0282]: type annotations needed
+   --> src\lib.rs:456:21
+    |
+456 |         Ok(resp) => resp.body().to_string_lossy().to_string(),
+    |                     ^^^^ cannot infer type
+
+error[E0599]: no method named `fetch` found for struct `HttpClient` in the current scope
+   --> src\lib.rs:486:37
+    |
+486 |     let gemini_raw = match ctx.http.fetch(
+    |                            ---------^^^^^ method not found in `HttpClient`
+
+error[E0282]: type annotations needed
+   --> src\lib.rs:492:21
+    |
+492 |         Ok(resp) => resp.body().to_string_lossy().to_string(),
+    |                     ^^^^ cannot infer type
+
+error[E0599]: no method named `fetch` found for struct `HttpClient` in the current scope
+   --> src\lib.rs:537:34
+    |
+537 |         if let Err(e) = ctx.http.fetch(
+    |                         ---------^^^^^ method not found in `HttpClient`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:578:64
+    |
+578 |         if let Some(agent) = tx_ctx.db.agent().agent_id().find("scout") {
+    |                                                           ---- ^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |                                                           |
+    |                                                           required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::find`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:343:38
+    |
+343 |     pub fn find(&self, col_val: impl Borrow<Col::ColType>) -> Option<Tbl::Row>
+    |                                      ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::find`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:585:49
+    |
+585 |             tx_ctx.db.agent().agent_id().delete("scout");
+    |                                          ------ ^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |                                          |
+    |                                          required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::delete`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:356:40
+    |
+356 |     pub fn delete(&self, col_val: impl Borrow<Col::ColType>) -> bool {
+    |                                        ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::delete`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:612:19
+    |
+612 |             .find("crisis")
+    |              ---- ^^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |              |
+    |              required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::find`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:343:38
+    |
+343 |     pub fn find(&self, col_val: impl Borrow<Col::ColType>) -> Option<Tbl::Row>
+    |                                      ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::find`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:623:55
+    |
+623 |         let agent = tx_ctx.db.agent().agent_id().find("strategist");
+    |                                                  ---- ^^^^^^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |                                                  |
+    |                                                  required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::find`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:343:38
+    |
+343 |     pub fn find(&self, col_val: impl Borrow<Col::ColType>) -> Option<Tbl::Row>
+    |                                      ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::find`
+
+error[E0308]: mismatched types
+   --> src\lib.rs:629:59
+    |
+629 |             let updated = AgentMessage { is_read: true, ..msg.clone() };
+    |                                                           ^^^^^^^^^^^ expected `AgentMessage`, found `&AgentMessage`
+
+error[E0599]: no method named `fetch` found for struct `HttpClient` in the current scope
+   --> src\lib.rs:651:45
+    |
+651 |     let mem0_response_text = match ctx.http.fetch(
+    |                                    ---------^^^^^ method not found in `HttpClient`
+
+error[E0282]: type annotations needed
+   --> src\lib.rs:658:21
+    |
+658 |         Ok(resp) => resp.body().to_string_lossy().to_string(),
+    |                     ^^^^ cannot infer type
+
+error[E0599]: no method named `fetch` found for struct `HttpClient` in the current scope
+   --> src\lib.rs:688:37
+    |
+688 |     let gemini_raw = match ctx.http.fetch(
+    |                            ---------^^^^^ method not found in `HttpClient`
+
+error[E0282]: type annotations needed
+   --> src\lib.rs:694:21
+    |
+694 |         Ok(resp) => resp.body().to_string_lossy().to_string(),
+    |                     ^^^^ cannot infer type
+
+error[E0599]: no method named `fetch` found for struct `HttpClient` in the current scope
+   --> src\lib.rs:738:34
+    |
+738 |         if let Err(e) = ctx.http.fetch(
+    |                         ---------^^^^^ method not found in `HttpClient`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:776:64
+    |
+776 |         if let Some(agent) = tx_ctx.db.agent().agent_id().find("strategist") {
+    |                                                           ---- ^^^^^^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |                                                           |
+    |                                                           required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::find`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:343:38
+    |
+343 |     pub fn find(&self, col_val: impl Borrow<Col::ColType>) -> Option<Tbl::Row>
+    |                                      ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::find`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:783:49
+    |
+783 |             tx_ctx.db.agent().agent_id().delete("strategist");
+    |                                          ------ ^^^^^^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |                                          |
+    |                                          required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::delete`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:356:40
+    |
+356 |     pub fn delete(&self, col_val: impl Borrow<Col::ColType>) -> bool {
+    |                                        ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::delete`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:810:19
+    |
+810 |             .find("crisis")
+    |              ---- ^^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |              |
+    |              required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::find`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:343:38
+    |
+343 |     pub fn find(&self, col_val: impl Borrow<Col::ColType>) -> Option<Tbl::Row>
+    |                                      ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::find`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:821:55
+    |
+821 |         let agent = tx_ctx.db.agent().agent_id().find("devils_advocate");
+    |                                                  ---- ^^^^^^^^^^^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |                                                  |
+    |                                                  required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::find`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:343:38
+    |
+343 |     pub fn find(&self, col_val: impl Borrow<Col::ColType>) -> Option<Tbl::Row>
+    |                                      ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::find`
+
+error[E0308]: mismatched types
+   --> src\lib.rs:827:59
+    |
+827 |             let updated = AgentMessage { is_read: true, ..msg.clone() };
+    |                                                           ^^^^^^^^^^^ expected `AgentMessage`, found `&AgentMessage`
+
+error[E0599]: no method named `fetch` found for struct `HttpClient` in the current scope
+   --> src\lib.rs:849:45
+    |
+849 |     let mem0_response_text = match ctx.http.fetch(
+    |                                    ---------^^^^^ method not found in `HttpClient`
+
+error[E0282]: type annotations needed
+   --> src\lib.rs:856:21
+    |
+856 |         Ok(resp) => resp.body().to_string_lossy().to_string(),
+    |                     ^^^^ cannot infer type
+
+error[E0599]: no method named `fetch` found for struct `HttpClient` in the current scope
+   --> src\lib.rs:888:37
+    |
+888 |     let gemini_raw = match ctx.http.fetch(
+    |                            ---------^^^^^ method not found in `HttpClient`
+
+error[E0282]: type annotations needed
+   --> src\lib.rs:894:21
+    |
+894 |         Ok(resp) => resp.body().to_string_lossy().to_string(),
+    |                     ^^^^ cannot infer type
+
+error[E0599]: no method named `fetch` found for struct `HttpClient` in the current scope
+   --> src\lib.rs:941:34
+    |
+941 |         if let Err(e) = ctx.http.fetch(
+    |                         ---------^^^^^ method not found in `HttpClient`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:982:64
+    |
+982 |         if let Some(agent) = tx_ctx.db.agent().agent_id().find("devils_advocate") {
+    |                                                           ---- ^^^^^^^^^^^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |                                                           |
+    |                                                           required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::find`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:343:38
+    |
+343 |     pub fn find(&self, col_val: impl Borrow<Col::ColType>) -> Option<Tbl::Row>
+    |                                      ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::find`
+
+error[E0277]: the trait bound `&str: Borrow<std::string::String>` is not satisfied
+   --> src\lib.rs:989:49
+    |
+989 |             tx_ctx.db.agent().agent_id().delete("devils_advocate");
+    |                                          ------ ^^^^^^^^^^^^^^^^^ the trait `Borrow<std::string::String>` is not implemented for `&str`
+    |                                          |
+    |                                          required by a bound introduced by this call
+    |
+help: the trait `Borrow<str>` is implemented for `std::string::String`
+   --> /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/alloc/src/str.rs:189:0
+note: required by a bound in `UniqueColumn::<Tbl, <Col as spacetimedb::table::Column>::ColType, Col>::delete`
+   --> C:\Users\HP\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\spacetimedb-2.1.0\src\table.rs:356:40
+    |
+356 |     pub fn delete(&self, col_val: impl Borrow<Col::ColType>) -> bool {
+    |                                        ^^^^^^^^^^^^^^^^^^^^ required by this bound in `UniqueColumn::<Tbl, <Col as Column>::ColType, Col>::delete`
+
+Some errors have detailed explanations: E0277, E0282, E0308, E0432, E0593, E0599.
+For more information about an error, try `rustc --explain E0277`.
+warning: `warroom` (lib) generated 1 warning
+error: could not compile `warroom` (lib) due to 37 previous errors; 1 warning emitted

@@ -1,0 +1,25 @@
+# ============================================================
+# WARROOM — .gitignore
+# ============================================================
+
+# Environment files — NEVER commit these
+.env
+.env.local
+.env.*.local
+
+# Rust build artifacts
+target/
+Cargo.lock
+
+# Node / React client
+client/node_modules/
+client/dist/
+
+# Editor / OS junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# SpacetimeDB generated files (re-generate with: npm run generate-bindings)
+client/src/module_bindings/

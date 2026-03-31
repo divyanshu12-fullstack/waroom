@@ -1,0 +1,140 @@
+/* ================================================================
+   WARROOM — App.css
+   Fonts · CSS Variables · Keyframes · Utility classes · Scrollbar
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap');
+
+/* ── Variables ─────────────────────────────── */
+:root {
+  --bg-primary:      #080B14;
+  --bg-panel:        #0D1117;
+  --bg-panel-hover:  #111827;
+  --border-default:  #161B27;
+  --border-bright:   #1E293B;
+  --scout:           #00D4FF;
+  --scout-dim:       rgba(0, 212, 255, 0.12);
+  --strategist:      #FFB800;
+  --strategist-dim:  rgba(255, 184, 0, 0.12);
+  --devils:          #FF3366;
+  --devils-dim:      rgba(255, 51, 102, 0.12);
+  --text-primary:    #E8EDF5;
+  --text-secondary:  #8892A4;
+  --text-muted:      #4A5568;
+  --conflict:        #FF3366;
+  --success:         #00FF88;
+}
+
+/* ── Reset ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, textarea, select { font-family: inherit; }
+
+/* ── Body ──────────────────────────────────── */
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  background-color: var(--bg-primary);
+  background-image:
+    linear-gradient(rgba(0,212,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.018) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--text-primary);
+  font-family: 'Rajdhani', sans-serif;
+  min-width: 1280px;
+}
+
+/* ── Scanline overlay ─────────────────────── */
+.dashboard::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.028) 2px,
+    rgba(0,0,0,0.028) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Custom scrollbar ─────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-panel); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #2D3B52; }
+
+/* ================================================================
+   KEYFRAMES
+   ================================================================ */
+
+@keyframes agentPulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%       { opacity: 1;    transform: scale(1.1); }
+}
+
+@keyframes livePing {
+  0%   { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(60px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes conflictDash {
+  to { stroke-dashoffset: -16; }
+}
+
+@keyframes messageFlow {
+  to { stroke-dashoffset: -40; }
+}
+
+@keyframes barFill {
+  from { width: 0%; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes nodeGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px currentColor);  }
+  50%       { filter: drop-shadow(0 0 18px currentColor); }
+}
+
+@keyframes titleGlow {
+  0%, 100% { text-shadow: 0 0 8px rgba(0,212,255,0.25); }
+  50%       { text-shadow: 0 0 28px rgba(0,212,255,0.7); }
+}
+
+@keyframes statusFlash {
+  0%, 100% { opacity: 1;   }
+  50%       { opacity: 0.4; }
+}
+
+@keyframes conflictBadgePulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(255,51,102,0.6); }
+  50%       { box-shadow: 0 0 12px rgba(255,51,102,1);  }
+}
+
+/* ================================================================
+   UTILITY CLASSES
+   ================================================================ */
+.reasoning-entry      { animation: slideInRight 0.38s ease-out both; }
+.node-pulse-ring      { animation: agentPulse  2s ease-in-out infinite; }
+.live-ping            { animation: livePing    1.5s ease-out infinite; }
+.edge-message-flow    { animation: messageFlow 1.2s linear infinite; }
+.edge-conflict        { animation: conflictDash 0.35s linear infinite; }
+.confidence-bar-fill  { animation: barFill 1s ease-out both; }
+.blink-cursor         { animation: blink  1s step-end infinite; }
+.node-thinking        { animation: nodeGlow 2s ease-in-out infinite; }
+.title-pulse          { animation: titleGlow 3s ease-in-out infinite; }
+.status-thinking      { animation: statusFlash 0.9s ease-in-out infinite; }
+.conflict-badge-live  { animation: conflictBadgePulse 1.2s ease-in-out infinite; }

@@ -1,0 +1,82 @@
+    Checking warroom v0.1.0 (E:\SpaceTime Db)
+error[E0433]: failed to resolve: use of undeclared type `Request`
+   --> src\lib.rs:860:9
+    |
+860 |         Request::builder()
+    |         ^^^^^^^ use of undeclared type `Request`
+    |
+help: consider importing one of these items
+    |
+  8 + use std::error::Request;
+    |
+  8 + use spacetimedb::http::Request;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Request`
+   --> src\lib.rs:901:9
+    |
+901 |         Request::builder()
+    |         ^^^^^^^ use of undeclared type `Request`
+    |
+help: consider importing one of these items
+    |
+  8 + use std::error::Request;
+    |
+  8 + use spacetimedb::http::Request;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Request`
+   --> src\lib.rs:956:13
+    |
+956 |             Request::builder()
+    |             ^^^^^^^ use of undeclared type `Request`
+    |
+help: consider importing one of these items
+    |
+  8 + use std::error::Request;
+    |
+  8 + use spacetimedb::http::Request;
+    |
+
+error[E0599]: no method named `clone` found for struct `AgentMessage` in the current scope
+   --> src\lib.rs:426:66
+    |
+ 95 | pub struct AgentMessage {
+    | ----------------------- method `clone` not found for this struct
+...
+426 |             let updated = AgentMessage { is_read: true, ..(*msg).clone() };
+    |                                                                  ^^^^^ method not found in `AgentMessage`
+    |
+    = help: items from traits can only be used if the trait is implemented and in scope
+    = note: the following trait defines an item `clone`, perhaps you need to implement it:
+            candidate #1: `Clone`
+
+error[E0599]: no method named `clone` found for struct `AgentMessage` in the current scope
+   --> src\lib.rs:635:66
+    |
+ 95 | pub struct AgentMessage {
+    | ----------------------- method `clone` not found for this struct
+...
+635 |             let updated = AgentMessage { is_read: true, ..(*msg).clone() };
+    |                                                                  ^^^^^ method not found in `AgentMessage`
+    |
+    = help: items from traits can only be used if the trait is implemented and in scope
+    = note: the following trait defines an item `clone`, perhaps you need to implement it:
+            candidate #1: `Clone`
+
+error[E0599]: no method named `clone` found for struct `AgentMessage` in the current scope
+   --> src\lib.rs:839:66
+    |
+ 95 | pub struct AgentMessage {
+    | ----------------------- method `clone` not found for this struct
+...
+839 |             let updated = AgentMessage { is_read: true, ..(*msg).clone() };
+    |                                                                  ^^^^^ method not found in `AgentMessage`
+    |
+    = help: items from traits can only be used if the trait is implemented and in scope
+    = note: the following trait defines an item `clone`, perhaps you need to implement it:
+            candidate #1: `Clone`
+
+Some errors have detailed explanations: E0433, E0599.
+For more information about an error, try `rustc --explain E0433`.
+error: could not compile `warroom` (lib) due to 6 previous errors
