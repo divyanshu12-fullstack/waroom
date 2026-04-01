@@ -452,7 +452,7 @@ export default function App() {
     // Tiny delay so simulation effect re-fires cleanly
     setTimeout(() => setIsLaunched(true), 80);
     if (!DEV_MODE) {
-      spawnSwarm(launchCrisis);
+      spawnSwarm({ crisis: launchCrisis });
     }
   }, [launchCrisis, spawnSwarm]);
   const handleInject = useCallback(() => {
@@ -464,7 +464,7 @@ export default function App() {
         content: injInput.trim(), isRead: false, sentAt: now,
       }]);
     } else {
-      injectBelief(injAgent, injInput.trim());
+      injectBelief({ agentId: injAgent, belief: injInput.trim() });
     }
     setInjections(prev => [{ agent: injAgent, text: injInput.trim(), at: now }, ...prev].slice(0, 3));
     setInjInput('');
@@ -557,14 +557,18 @@ export default function App() {
         </div>
 
         {/* Buttons */}
-        <button onClick={() => setShowLaunch(true)} style={{
+        <button 
+          onClick={() => setShowLaunch(true)} 
+          disabled={agents.some(a => a.status === 'thinking')}
+          style={{
           background: isLaunched ? 'rgba(255,51,102,0.08)' : 'rgba(255,51,102,0.15)',
           border: `1px solid ${isLaunched ? '#FF336640':'#FF3366'}`,
-          color: isLaunched ? '#FF336688' : '#FF3366',
+          color: agents.some(a => a.status === 'thinking') ? '#FF336640' : (isLaunched ? '#FF336688' : '#FF3366'),
+          cursor: agents.some(a => a.status === 'thinking') ? 'not-allowed' : 'pointer',
           fontFamily:'Rajdhani', fontWeight:700, fontSize:'0.75rem',
           letterSpacing:'0.15em', padding:'6px 14px', borderRadius:3, flexShrink:0,
         }}>
-          {isLaunched ? '⟳ RELAUNCH' : '▶ LAUNCH SWARM'}
+          {agents.some(a => a.status === 'thinking') ? 'SWARM IS ACTIVE...' : (isLaunched ? '⟳ RELAUNCH' : '▶ LAUNCH SWARM')}
         </button>
 
       </header>
