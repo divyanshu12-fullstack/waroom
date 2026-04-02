@@ -144,9 +144,12 @@ pub struct AgentMessage {
 
 #[table(accessor = shared_context, public)]
 pub struct SharedContext {
+    /// Key for the shared context
     #[primary_key]
     pub key: String,
+    /// Value for the shared context
     pub value: String,
+    /// Timestamp for when the shared context was last updated
     pub updated_at: u64,
 }
 
@@ -1398,5 +1401,51 @@ fn check_and_write_final_brief(ctx: &mut ProcedureContext) {
         });
         
         log::info!("[warroom] Final brief successfully written and logged to Structured Memory.");
+    }
+}
+
+// =============================================================================
+// REDUCER: get_mem0_memories
+// Fetches all memories from Mem0 for the Memory Web visualizer
+// =============================================================================
+
+#[spacetimedb::procedure]
+fn get_mem0_memories(ctx: &mut ProcedureContext) -> Result<(), String> {
+    log::info!("[memory_web] Fetching all memories from Mem0...");
+    
+    let mem0_search_body = serde_json::json!({
+        "query": "crisis strategy decision outcome",
+        "limit": 50,
+        "user_id": "warroom_swarm"
+    }).to_string().into_bytes();
+
+    use spacetimedb::http::Request;
+    match ctx.http.send(
+        Request::builder()
+            .method("POST")
+            .uri(&format!("{}?query=crisis&limit=50", MEM0_SEARCH_URL))
+            .header("Content-Type", "application/json")
+            .header("Authorization", format!("Token {}", MEM0_API_KEY))
+            .body(mem0_search_body)
+            .unwrap(),
+    ) {
+        Ok(response) => {
+            let body = response.into_parts().1.into_string_lossy();
+            log::info!("[memory_web] Retrieved {} memories", body.len());
+            // Store in shared context for frontend to read
+            let now = current_timestamp_secs!(ctx);
+            ctx.with_tx(|tx_ctx| {
+                tx_ctx.db.shared_context().insert(SharedContext { 
+                    key: "mem0_memories".to_string(), 
+                    value: body.to_string(),
+                    updated_at: now,
+                });
+            });
+            Ok(())
+        }
+        Err(e) => {
+            log::error!("[memory_web] Failed to fetch memories: {:?}", e);
+            Err(format!("Failed to fetch memories: {:?}", e))
+        }
     }
 }
