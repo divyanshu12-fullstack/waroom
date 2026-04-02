@@ -578,9 +578,14 @@ export default function App() {
     : [];
 
   // ── LIVE MODE Reducers ──────────────────────────────────────
-  const spawnSwarm = useReducer(reducers.spawnSwarm || ((...args) => {}));
-  const injectBelief = useReducer(reducers.injectBelief || ((...args) => {}));
-  const togglePause = useReducer(reducers.togglePause || ((...args) => {}));
+  const spawnSwarm = useReducer(reducers.spawnSwarm || reducers.spawn_swarm || ((...args) => {
+    console.error("CRITICAL: spawn_swarm reducer not found in bindings!");
+  }));
+  const nukeSession = useReducer(reducers.nukeSession || reducers.nuke_session || (() => {
+    console.error("CRITICAL: nuke_session reducer not found in bindings!");
+  }));
+  const injectBelief = useReducer(reducers.injectBelief || reducers.inject_belief || ((...args) => {}));
+  const togglePause = useReducer(reducers.togglePause || reducers.toggle_pause || ((...args) => {}));
 
   // ── Legacy DEV hooks ───────────────────────────────────────
   const [devAgents, setAgents] = useState(INITIAL_AGENTS);
@@ -818,71 +823,75 @@ export default function App() {
   return (
     <div className="dashboard">
       {/* ── HEADER ─────────────────────────────────────────── */}
-      <header className="header">
-        <h1 className="header-title title-pulse">WARROOM</h1>
+      <header className="header" style={{ display: 'flex', justifyContent: 'space-between', padding: '15px 30px', borderBottom: '1px solid var(--border-default)' }}>
+        <h1 className="header-title title-pulse" style={{ fontSize: '1.2rem', fontWeight: '900', color: 'var(--text-primary)' }}>WARROOM</h1>
 
-        <div className="live-indicator">
-          <div className="live-dot-wrapper">
-            <div className="live-dot-ping" />
-            <div className="live-dot" />
+        <div className="header-center" style={{ display: 'flex', gap: '20px' }}>
+          <div className="agent-status-indicators" style={{ display: 'flex', gap: '15px' }}>
+            {agents.map((a) => {
+              const cfg = AGENT_CFG[a.agentId];
+              if (!cfg) return null;
+              const thinking = a.status === "thinking";
+              return (
+                <div key={a.agentId} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  <div className={`agent-dot ${thinking ? "active" : ""}`} style={{ width: '8px', height: '8px', borderRadius: '50%', background: thinking ? cfg.color : '#333' }} />
+                  <span style={{ fontSize: '10px', color: thinking ? cfg.color : '#888' }}>{cfg.label.toUpperCase()}</span>
+                </div>
+              );
+            })}
           </div>
-          <span className="live-label">LIVE</span>
         </div>
 
-        <span className="session-timer">{fmt(sessionSecs)}</span>
-
-        <div className="crisis-text">
-          <span>⚡ {crisis}</span>
-        </div>
-
-        <div className="agent-status-indicators">
-          {agents.map((a) => {
-            const cfg = AGENT_CFG[a.agentId];
-            if (!cfg) return null;
-            const thinking = a.status === "thinking";
-            return (
-              <div key={a.agentId} className="agent-status-item">
-                <div
-                  className={`agent-dot${thinking ? " active status-thinking" : ""}`}
-                  style={{
-                    background: thinking ? cfg.color : undefined,
-                    boxShadow: thinking ? `0 0 8px ${cfg.color}` : undefined,
-                  }}
-                />
-                <span
-                  className="agent-dot-label"
-                  style={{ color: thinking ? cfg.color : undefined }}
-                >
-                  {cfg.label.toUpperCase()}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-
-        {isLaunched && (
-          <button
-            className={`override-btn ${isPaused ? "active" : ""}`}
+        <div className="header-actions" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <button 
+            className="reset-btn-final"
+            style={{ 
+              background: 'rgba(255, 51, 102, 0.15)', 
+              border: '1.5px solid #FF3366', 
+              color: '#FF3366',
+              padding: '6px 14px',
+              borderRadius: '4px',
+              fontSize: '10px',
+              fontWeight: '900',
+              cursor: 'pointer',
+              letterSpacing: '1px'
+            }}
             onClick={() => {
-              console.log("COMMAND OVERRIDE CLICKED. Target state:", !isPaused);
-              togglePause(!isPaused);
+              if (window.confirm("☢️ NUCLEAR RESET: Wipe all session memories and start fresh?")) {
+                if (nukeSession) {
+                  console.log("NUCLEAR RESET LOG: DISPATCHING VIA HOOK");
+                  nukeSession();
+                  setSessionSecs(0);
+                  setIsLaunched(false);
+                  setShowLaunch(false);
+                  setMem0Memories([]);
+                  alert("☢️ Reset command broadcast to swarm. Cleaning up...");
+                } else {
+                  console.warn("Nuke reducer not active yet.");
+                }
+              }
             }}
           >
-            {isPaused ? "⏯ RESUME SWARM" : "⏸ COMMAND OVERRIDE"}
+            ☢️ RESET SESSION
           </button>
-        )}
 
-        <button
-          className="launch-btn"
-          onClick={() => setShowLaunch(true)}
-          disabled={isSwarmActive && !isPaused}
-        >
-          {isSwarmActive
-            ? "⟳ SWARM ACTIVE..."
-            : isLaunched
-              ? "⟳ RELAUNCH"
-              : "▶ LAUNCH SWARM"}
-        </button>
+          <button
+            className="launch-btn"
+            onClick={() => setShowLaunch(true)}
+            disabled={isSwarmActive && !isPaused}
+            style={{ 
+              background: 'var(--strategist)', 
+              color: 'black',
+              padding: '6px 14px',
+              borderRadius: '4px',
+              fontSize: '10px',
+              fontWeight: '900',
+              cursor: 'pointer'
+            }}
+          >
+            {isSwarmActive ? "⟳ RUNNING..." : "▶ LAUNCH SWARM"}
+          </button>
+        </div>
       </header>
 
       {/* ── TAB NAVIGATION ─────────────────────────────── */}

@@ -891,3 +891,40 @@ body {
 .status-thinking      { animation: statusFlash 0.9s ease-in-out infinite; }
 .conflict-badge-live  { animation: conflictBadgePulse 1.2s ease-in-out infinite; }
 .fade-in              { animation: fadeIn 0.4s ease-out both; }
+/* ── RESET SESSION BUTTON ──────────────────── */
+.reset-session-btn {
+  background: rgba(255, 51, 102, 0.1);
+  border: 1px solid rgba(255, 51, 102, 0.3);
+  color: #FF3366;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: 'Space Mono', monospace;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.reset-session-btn:hover {
+  background: #FF3366;
+  color: white;
+  box-shadow: 0 0 15px rgba(255, 51, 102, 0.4);
+  transform: translateY(-1px);
+}
+
+.reset-session-btn:active {
+  transform: translateY(1px);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
