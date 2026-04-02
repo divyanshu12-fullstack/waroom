@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "type": "module",
   "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "spacetimedb": "latest"
+    "spacetimedb": "latest",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
@@ -14,6 +19,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "generate-bindings": "spacetime generate --lang typescript --out-dir src/module_bindings"
+    "generate-bindings": "spacetime generate --lang typescript --out-dir src/module_bindings --bin-path ../target/wasm32-unknown-unknown/release/warroom.wasm"
   }
 }

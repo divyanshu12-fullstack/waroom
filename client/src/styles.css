@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+    --font-heading: "Sora", "Space Grotesk", sans-serif;
+    --font-body: "Manrope", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+}
+
+:root {
+    --bg: #060a12;
+    --bg-soft: #0b1324;
+    --panel: #0f1a30;
+    --panel-2: #101a2b;
+    --text: #e2e8f0;
+    --text-muted: #8a98ac;
+    --agent-scout: #58d7ff;
+    --agent-strategist: #ffc46c;
+    --agent-devils: #ff6b88;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--text);
+    background:
+        radial-gradient(circle at 24% -10%, rgba(56, 189, 248, 0.18), transparent 36%),
+        radial-gradient(circle at 88% 12%, rgba(245, 158, 11, 0.18), transparent 34%),
+        linear-gradient(150deg, #060a12 0%, #090f1d 52%, #070d19 100%);
+}
+
+.font-heading {
+    font-family: var(--font-heading);
+    letter-spacing: 0.015em;
+}
+
+.scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(125, 211, 252, 0.35) rgba(15, 23, 42, 0.4);
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.45), rgba(245, 158, 11, 0.4));
+    border-radius: 999px;
+}
